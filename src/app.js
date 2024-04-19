@@ -19,7 +19,7 @@ app.use('/static', express.static(`${config.DIRNAME}/public`));
 app.get('/', (req, res) => {
   res.send(
     `
-    <h1>¡Bienvenida a la primera Entrega de mi Proyecto Final!</h1>
+    <h1>¡Bienvenido a la primera Entrega de mi Proyecto Final!</h1>
     <ul>
     <li>
     <h2>Has Click para ver todos los productos =>  <a href='http://localhost:8080/api/products'>http://localhost:8080/api/products</a><h2>
