@@ -18,7 +18,6 @@ app.use('/static', express.static(`${config.DIRNAME}/public`));
 // Ruta de prueba para verificar que el servidor está funcionando
 app.get('/', (req, res) => {
   res.send(
-
     `
     <h1>¡Bienvenida a la primera Entrega de mi Proyecto Final!</h1>
     <ul>
