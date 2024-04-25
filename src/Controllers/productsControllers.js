@@ -2,7 +2,7 @@ import fs from 'fs';
 import config from '../Configs/config.js';
 import path from 'path';
 
-const productosFilePath = path.join(config.DIRNAME, '../Mocks/productos.json'); 
+const productosFilePath = path.join(config.DIRNAME, './Mocks/productos.json'); 
 
 const productsController = {
   getAllProducts: (req, res) => {
@@ -28,6 +28,8 @@ const productsController = {
   },
   addProduct: (req, res) => {
     try {
+
+      console.log(req.body)
       const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
       const newProduct = {
         id: products.length + 1,

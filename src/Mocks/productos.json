@@ -26,5 +26,27 @@
       "imagen1.jpg",
       "imagen2.jpg"
     ]
+  },
+  {
+    "id": 3,
+    "title": "Producto de Formulario",
+    "description": "Este producto esta cargado desde el formulario",
+    "code": "P002",
+    "price": "500",
+    "status": true,
+    "stock": "10",
+    "category": "Jueguetes",
+    "thumbnails": "imagen1.png"
+  },
+  {
+    "id": 4,
+    "title": "Cargador Motorola",
+    "description": "cargador motorola blablabla",
+    "code": "P003",
+    "price": "12",
+    "status": true,
+    "stock": "500",
+    "category": "Celulares",
+    "thumbnails": "img.png"
   }
 ]
