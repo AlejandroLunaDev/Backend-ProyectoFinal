@@ -1,32 +1,38 @@
-<section id="productList">
-    <h3>Productos:</h3>
-    <ul>
+<header>
+    {{> navbar}}
+    <h1>Admin</h1>
+</header>
+<main class="realtime-container">
+<table id="productTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Categoría</th>
+            <th>Status</th>
+            <th>Código</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
         {{#each products}}
-        <li>
-            <span>Id:<small>{{this.id}}</small></span>
-            <span>Titulo:<small>{{this.title}}</small></span>
-            <span>Precio:<small>{{this.price}}</small></span>
-            <span>Stock:<small>{{this.stock}}</small></span>
-        </li>
+        <tr data-id="{{this.id}}">
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.code}}</td>
+            <td><button class="delete-btn">Eliminar</button></td>
+        </tr>
         {{/each}}
-    </ul>
-</section>
-
-        <section>
-            {{>productsForm}}
-        </section>
-<script>
-    // Escuchar el evento 'newProduct' emitido por el servidor de sockets
-    socket.on('newProduct', (product) => {
-        // Agregar el nuevo producto a la lista de productos
-        const productList = document.getElementById('productList');
-        const newProductItem = document.createElement('li');
-        newProductItem.innerHTML = `
-            <span>Id:<small>${product.id}</small></span>
-            <span>Titulo:<small>${product.title}</small></span>
-            <span>Precio:<small>${product.price}</small></span>
-            <span>Stock:<small>${product.stock}</small></span>
-        `;
-        productList.querySelector('ul').appendChild(newProductItem);
-    });
-</script>
+    </tbody>
+</table>
+    <section>
+        {{>productsForm}}
+    </section>
+</main>
+<script type="module" src="static/js/adminSocket.js"></script>

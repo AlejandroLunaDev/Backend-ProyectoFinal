@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+   
 }
 
 nav {
@@ -10,24 +11,26 @@ nav {
     height: 70px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 10px;
+    color: white;
+    padding: 0 30px;
+}
+
+nav a {
+    text-decoration: none;
     color: white;
 }
 
-main {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
+nav a:hover{
+    color: orange;
 }
 
 small {
     font-weight: bold;
 }
 
-li{
-    display: flex;
-    gap: 10px;
-}
+
 
 .form-container {
     background-color: orange;
@@ -41,7 +44,60 @@ li{
 }
 
 .product-container-home {
-    display:flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    background: orange;
+}
+
+.card-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 100%;
+    height: 300px;
+}
+
+
+
+figure {
+    height: 50%;
+    background: green;
+    object-fit: fill;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-body-contianer{
+    display:flex ;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 130px;
+}
+.card-body-contianer div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.card-body-contianer a {
+    text-decoration: none;
+}
+
+
+
+.realtime-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
 }

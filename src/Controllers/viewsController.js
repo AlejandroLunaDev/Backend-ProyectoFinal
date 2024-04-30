@@ -5,12 +5,13 @@ export class viewsController {
 
 
 homeView = (req,res) => {
-    res.render("home",{title: "Home", style :"home.css"})
+    const productsData = JSON.parse(fs.readFileSync(`${config.DIRNAME}/Mocks/productos.json`, 'utf8'));
+    res.render("home",{title: "Home", style :"home.css", products: productsData})
 }
 
 realTimeProductView = (req, res) => {
     const productsData = JSON.parse(fs.readFileSync(`${config.DIRNAME}/Mocks/productos.json`, 'utf8'));
-    res.render('realTimeProducts', { title: "RealTimePRoducts", products: productsData, style :"home.css" });
+    res.render('realTimeProducts', { title: "Admin", products: productsData, style :"home.css" });
 }
 
 }

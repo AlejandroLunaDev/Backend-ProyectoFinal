@@ -1,85 +1,24 @@
 [
   {
-    "id": 1,
-    "title": "Nombre del producto",
-    "description": "Descripción del producto",
-    "code": "P001",
-    "price": 100,
+    "id": 2,
+    "title": "Motorola g54",
+    "description": "telefono maso",
+    "code": "C002",
+    "price": "54",
     "status": true,
-    "stock": 10,
-    "category": "Electrónicos",
-    "thumbnails": [
-      "imagen1.jpg",
-      "imagen2.jpg"
-    ]
+    "stock": "10",
+    "category": "Celulares",
+    "thumbnails": "https://imgs.casasbahia.com.br/55064351/1g.jpg"
   },
   {
     "id": 2,
-    "title": "Producto Actualizado",
-    "description": "Descripción del producto",
-    "code": "P001",
-    "price": 1250,
-    "status": true,
-    "stock": 10,
-    "category": "Electrónicos",
-    "thumbnails": [
-      "imagen1.jpg",
-      "imagen2.jpg"
-    ]
-  },
-  {
-    "id": 3,
-    "title": "producto socket",
-    "description": "todos tenemos uno",
-    "code": "001",
-    "price": "100",
+    "title": "Iphone X",
+    "description": "top",
+    "code": "C001",
+    "price": "500",
     "status": true,
     "stock": "10",
-    "category": "tech",
-    "thumbnails": "img.png"
-  },
-  {
-    "id": 4,
-    "title": "asdasdasd",
-    "description": "asdasdas",
-    "code": "asddasd",
-    "price": "12312",
-    "status": true,
-    "stock": "1231",
-    "category": "sdad",
-    "thumbnails": "12312"
-  },
-  {
-    "id": 5,
-    "title": "dasdasdasd",
-    "description": "as",
-    "code": "asd",
-    "price": "22222",
-    "status": true,
-    "stock": "2222",
-    "category": "aesds",
-    "thumbnails": "sad"
-  },
-  {
-    "id": 6,
-    "title": "intentamos",
-    "description": "asdasdasd",
-    "code": "asdasd",
-    "price": "12321",
-    "status": true,
-    "stock": "12312",
-    "category": "12312",
-    "thumbnails": "asdad"
-  },
-  {
-    "id": 7,
-    "title": "asdpojkasdasopidpoa",
-    "description": "apsoidapoidsposaidpoi",
-    "code": "11111111111111",
-    "price": "1111111111",
-    "status": true,
-    "stock": "111111111111111",
-    "category": "podiapoisdp",
-    "thumbnails": "spoid´paio"
+    "category": "Celulares",
+    "thumbnails": "https://trocafone.vtexassets.com/arquivos/ids/240491-800-auto?v=637919488939500000&width=800&height=auto&aspect=true"
   }
 ]

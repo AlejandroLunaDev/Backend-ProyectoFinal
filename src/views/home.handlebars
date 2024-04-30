@@ -2,14 +2,10 @@
     <header>
         {{> navbar}}
     </header>
-    <main>
-        <section class="product-container-home">
-        <article>
-        {{> products}}
-        </article>
-        </section>
-
+    <main class="product-container-home" >
+        {{> productsList}}
     </main>
 </section>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/socket.js"></script>
+
