@@ -39,3 +39,9 @@ li{
     padding: 10px;
     border-radius: 10px;
 }
+
+.product-container-home {
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+}

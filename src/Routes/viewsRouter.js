@@ -6,3 +6,5 @@ const controller = new viewsController();
 export const viewRouter = express.Router();
 
 viewRouter.get("/", controller.homeView);
+viewRouter.get('/realtimeproducts', controller.realTimeProductView);
+

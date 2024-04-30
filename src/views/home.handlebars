@@ -3,13 +3,13 @@
         {{> navbar}}
     </header>
     <main>
-        <section>
-        <h1>Home</h1>
+        <section class="product-container-home">
+        <article>
         {{> products}}
+        </article>
         </section>
-    <aside>
-        <h4>Cargar Producto</h4>
-        {{> productsForm}}
-    </aside>
+
     </main>
 </section>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/socket.js"></script>

@@ -1,21 +1,24 @@
-        <section>
-            <h3>Productos:</h3>
-            <ul>
-            {{#each products}}
-                <li>
-                    <span>
-                       Id:<small>{{this.id}}</small> 
-                    </span>
-                    <span>
-                       Titulo: <small> {{this.title}}</small>
-                    </span>
-                    <span>
-                      Precio: <small> {{this.price}}</small> 
-                    </span>
-                    <span>
-                        Stock: <small>{{this.stock}} </small>
-                    </span>
-     
-            {{/each}}
-            </ul>
-        </section>
+<section>
+    <h3>Productos:</h3>
+    <ul>
+    {{#each products}}
+        <li>
+            <span>
+                Id:<small>{{this.id}}</small> 
+            </span>
+            <span>
+                Titulo: <small> {{this.title}}</small>
+            </span>
+            <span>
+                Precio: <small> {{this.price}}</small> 
+            </span>
+            <span>
+                Stock: <small>{{this.stock}} </small>
+            </span>
+
+    {{/each}}
+    </ul>
+</section>
+<script src="/socket.io/socket.io.js"></script>
+
+

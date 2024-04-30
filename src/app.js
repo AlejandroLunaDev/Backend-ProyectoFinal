@@ -5,6 +5,7 @@ import config from './Configs/config.js';
 import {viewRouter} from './Routes/viewsRouter.js'
 import handlebars from 'express-handlebars'
 import logger from 'morgan';
+import { Server } from 'socket.io';
 
 const app = express();
 
@@ -32,6 +33,23 @@ app.use('/static', express.static(`${config.DIRNAME}/public`));
 
 
 // Iniciar el servidor
-app.listen(config.PORT, () => {
+const httpServer = app.listen(config.PORT, () => {
   console.log(`Servidor escuchando en el puerto http://localhost:${config.PORT}/`);
+  config.openBrowser()
 });
+
+export const socketServer = new Server(httpServer)
+app.set('socketServer', socketServer)
+
+// Escuchar el evento 'addProduct' desde el cliente
+socketServer.on('connection', socket => {
+  socket.on('addProduct', productData => {
+
+    console.log('Nuevo producto recibido desde el cliente:', productData);
+
+    // Emite el evento 'newProduct' a todos los clientes conectados
+    socketServer.emit('newProduct', productData);
+  });
+});
+
+

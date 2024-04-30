@@ -1,0 +1,32 @@
+<section id="productList">
+    <h3>Productos:</h3>
+    <ul>
+        {{#each products}}
+        <li>
+            <span>Id:<small>{{this.id}}</small></span>
+            <span>Titulo:<small>{{this.title}}</small></span>
+            <span>Precio:<small>{{this.price}}</small></span>
+            <span>Stock:<small>{{this.stock}}</small></span>
+        </li>
+        {{/each}}
+    </ul>
+</section>
+
+        <section>
+            {{>productsForm}}
+        </section>
+<script>
+    // Escuchar el evento 'newProduct' emitido por el servidor de sockets
+    socket.on('newProduct', (product) => {
+        // Agregar el nuevo producto a la lista de productos
+        const productList = document.getElementById('productList');
+        const newProductItem = document.createElement('li');
+        newProductItem.innerHTML = `
+            <span>Id:<small>${product.id}</small></span>
+            <span>Titulo:<small>${product.title}</small></span>
+            <span>Precio:<small>${product.price}</small></span>
+            <span>Stock:<small>${product.stock}</small></span>
+        `;
+        productList.querySelector('ul').appendChild(newProductItem);
+    });
+</script>
