@@ -1,6 +1,6 @@
 # Backend-ProyectoFinal
 
-<h1 align="center">Primera Entrega</h1>
+<h1 align="center">Websockets + Handlebars</h1>
 
 <p align="center">
     Se desarrollará un servidor que contenga los endpoints y servicios necesarios para gestionar los productos y carritos de compra en el e-commerce.
