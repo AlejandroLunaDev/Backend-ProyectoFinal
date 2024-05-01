@@ -31,7 +31,9 @@ small {
 }
 
 
-
+.home-container {
+    height: 100dvh;
+}
 .form-container {
     background-color: orange;
     height: auto;
@@ -48,7 +50,6 @@ small {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 10px;
     padding: 10px;
-    background: orange;
 }
 
 .card-container {
@@ -63,11 +64,17 @@ small {
     height: 300px;
 }
 
+tr td{
+    border: 1px solid grey;
+    max-height: 40px ;
+    width: 100px;
+    text-align: center;
+    padding: 5px;
+}
 
 
 figure {
     height: 50%;
-    background: green;
     object-fit: fill;
 }
 
@@ -101,3 +108,4 @@ img {
     gap: 40px;
     margin-top: 60px;
 }
+

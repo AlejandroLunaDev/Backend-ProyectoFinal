@@ -119,12 +119,10 @@ document.addEventListener('click', async (event) => {
             const response = await fetch(`/api/products/${productId}`, {
                 method: 'DELETE',
             });
-
             if (!response.ok) {
                 throw new Error('Error al eliminar el producto.');
             }
 
-            // Eliminar la fila de la tabla en tiempo real
             event.target.closest('tr').remove();
             console.log('Producto eliminado correctamente.');
         } catch (error) {
