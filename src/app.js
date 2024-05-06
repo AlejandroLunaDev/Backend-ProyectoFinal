@@ -8,8 +8,10 @@ import logger from 'morgan';
 import { Server } from 'socket.io';
 /* import userRouter from './Routes/userRouter.js' */
 import socket from './public/js/socket.js';
+import { connectDB } from './dao/db/mongoDb.js';
 
 const app = express();
+connectDB()
 
 // Middleware para el manejo de JSON en las solicitudes
 app.use(express.json());
@@ -23,12 +25,11 @@ app.set('view engine', 'handlebars');
 
 
 
-// Rutas para productos y carritos
+// Rutas
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
-/* app.use("/api/users",userRouter) */
-
 app.use("/",viewRouter)
+/* app.use("/api/users",userRouter) */
 
 // Ruta estática para servir archivos estáticos
 app.use('/static', express.static(`${config.DIRNAME}/public`));
@@ -41,9 +42,11 @@ const httpServer = app.listen(config.PORT, () => {
   config.openBrowser()
 });
 
+
+
 export const io = new Server(httpServer)
 socket(io)
-app.set('socketServer', io)
+/* app.set('socketServer', io) */
 
 
 

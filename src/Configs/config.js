@@ -7,6 +7,7 @@ dotenv.config();
 const config = {
   PORT: process.env.PORT ?? 3000,
   DIRNAME: url.fileURLToPath(new URL('..', import.meta.url)),
+  MONGO_URI:process.env.DB_URI,
   
   get UPLOAD_DIR() { return `${this.DIRNAME}/public/img` },
 
