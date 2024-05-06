@@ -40,7 +40,6 @@ export default (io) => {
 
         socket.on('addProduct', (productData) => {
             console.log('Nuevo producto recibido desde el cliente:', productData);
-            // Emite el evento 'newProduct' a todos los clientes conectados
             io.emit('newProduct', productData);
         });
     });
