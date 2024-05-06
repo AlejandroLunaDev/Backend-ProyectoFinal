@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Escuchar el evento 'newProduct' emitido por el servidor de sockets
+
 socket.on('newProduct', (product) => {
-    // Verificar si el producto ya existe en la tabla
+
 
     if (product.id !== undefined) {
 

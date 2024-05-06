@@ -1,8 +1,11 @@
 import * as url from 'url';
 import open from 'open';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config = {
-  PORT: process.env.PORT ?? 8080,
+  PORT: process.env.PORT ?? 3000,
   DIRNAME: url.fileURLToPath(new URL('..', import.meta.url)),
   
   get UPLOAD_DIR() { return `${this.DIRNAME}/public/img` },

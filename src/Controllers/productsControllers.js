@@ -1,7 +1,7 @@
 import fs from 'fs';
 import config from '../Configs/config.js';
 import path from 'path';
-import { socketServer } from '../app.js';
+import { io } from '../app.js';
 
 const productosFilePath = path.join(config.DIRNAME, './Mocks/productos.json'); 
 

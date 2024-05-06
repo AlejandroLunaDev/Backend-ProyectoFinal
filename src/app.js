@@ -6,6 +6,8 @@ import {viewRouter} from './Routes/viewsRouter.js'
 import handlebars from 'express-handlebars'
 import logger from 'morgan';
 import { Server } from 'socket.io';
+/* import userRouter from './Routes/userRouter.js' */
+import socket from './public/js/socket.js';
 
 const app = express();
 
@@ -24,6 +26,7 @@ app.set('view engine', 'handlebars');
 // Rutas para productos y carritos
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+/* app.use("/api/users",userRouter) */
 
 app.use("/",viewRouter)
 
@@ -38,18 +41,10 @@ const httpServer = app.listen(config.PORT, () => {
   config.openBrowser()
 });
 
-export const socketServer = new Server(httpServer)
-app.set('socketServer', socketServer)
+export const io = new Server(httpServer)
+socket(io)
+app.set('socketServer', io)
 
-// Escuchar el evento 'addProduct' desde el cliente
-socketServer.on('connection', socket => {
-  socket.on('addProduct', productData => {
 
-    console.log('Nuevo producto recibido desde el cliente:', productData);
-
-    // Emite el evento 'newProduct' a todos los clientes conectados
-    socketServer.emit('newProduct', productData);
-  });
-});
 
 

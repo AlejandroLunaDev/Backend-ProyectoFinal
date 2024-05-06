@@ -7,4 +7,5 @@ export const viewRouter = express.Router();
 
 viewRouter.get("/", controller.homeView);
 viewRouter.get('/realtimeproducts', controller.realTimeProductView);
+viewRouter.get('/chat', controller.chat);
 
