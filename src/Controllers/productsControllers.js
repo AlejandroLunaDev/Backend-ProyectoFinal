@@ -1,14 +1,15 @@
 import fs from 'fs';
 import config from '../Configs/config.js';
 import path from 'path';
+import { socketServer } from '../app.js';
 
-const productosFilePath = path.join(config.DIRNAME, '../Mocks/productos.json'); 
+const productosFilePath = path.join(config.DIRNAME, './Mocks/productos.json'); 
 
 const productsController = {
   getAllProducts: (req, res) => {
     try {
       const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      res.json(products);
+      res.render('realTimeProducts', { products });
     } catch (error) {
       res.status(500).json({ error: 'Error al obtener los productos' });
     }
@@ -28,6 +29,8 @@ const productsController = {
   },
   addProduct: (req, res) => {
     try {
+
+      console.log(req.body)
       const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
       const newProduct = {
         id: products.length + 1,
@@ -43,7 +46,12 @@ const productsController = {
 
       products.push(newProduct);
       fs.writeFileSync(productosFilePath, JSON.stringify(products, null, 2));
-      res.status(201).json(newProduct);
+
+      const socketServer = req.app.get('socketServer')
+      socketServer.emit('newProduct', newProduct);
+
+      res.status(200).send(newProduct);
+
     } catch (error) {
       res.status(500).json({ error: 'Error al agregar el producto' });
     }
@@ -61,6 +69,7 @@ const productsController = {
 
       products[index] = { ...products[index], ...updatedFields };
       fs.writeFileSync(productosFilePath, JSON.stringify(products, null, 2));
+
       res.json(products[index]);
     } catch (error) {
       res.status(500).json({ error: 'Error al actualizar el producto' });
@@ -75,7 +84,9 @@ const productsController = {
         return res.status(404).json({ error: 'Producto no encontrado' });
       }
       fs.writeFileSync(productosFilePath, JSON.stringify(filteredProducts, null, 2));
-      res.json({ message: 'Producto eliminado correctamente' });
+
+
+      res.status(200).send({ message: 'Producto eliminado correctamente' });
     } catch (error) {
       res.status(500).json({ error: 'Error al eliminar el producto' });
     }
