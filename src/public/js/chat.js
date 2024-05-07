@@ -9,7 +9,7 @@ const scrollToBottom = () => {
     chatMessage.scrollTop = chatMessage.scrollHeight;
 }
 
-// Escuchar eventos del socket
+
 socket.on('message', (data) => {
     const item = `<li class="message"><strong>${data.userName}:</strong> ${data.message}</li>`;
     chatMessage.insertAdjacentHTML('beforeend', item);
@@ -25,7 +25,7 @@ socket.on('previousMessages', (messages) => {
     scrollToBottom();
 });
 
-// Enviar mensaje al hacer clic en Enviar
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (input.value.trim()) {

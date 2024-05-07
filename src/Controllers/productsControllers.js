@@ -1,96 +1,70 @@
-import fs from 'fs';
-import config from '../Configs/config.js';
-import path from 'path';
-import { io } from '../app.js';
+import { getAllProducts, getProductById, addProduct as addProductDao, updateProduct as updateProductDao, deleteProduct as deleteProductDao } from '../dao/db/productDaoMongo.js';
 
-const productosFilePath = path.join(config.DIRNAME, './Mocks/productos.json'); 
-
-const productsController = {
-  getAllProducts: (req, res) => {
-    try {
-      const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      res.render('realTimeProducts', { products });
-    } catch (error) {
-      res.status(500).json({ error: 'Error al obtener los productos' });
+class ProductsController {
+    async getAllProductsController(req, res) {
+        try {
+            const products = await getAllProducts();
+           /*  res.status(200).json(products); */
+            return {products}
+        } catch (error) {
+            console.error('Error al obtener todos los productos:', error);
+            res.status(500).json({ message: 'Error interno del servidor' });
+        }
     }
-  },
-  getProductById: (req, res) => {
-    try {
-      const productId =Number(req.params.pid);
-      const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      const product = products.find(product => product.id === productId);
-      if (!product) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
-      }
-      res.json(product);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al obtener el producto por ID' });
+
+    async getProductByIdController(req, res) {
+        const productId = req.params.pid;
+        try {
+            const product = await getProductById(productId);
+            if (!product) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            res.status(200).json(product);
+        } catch (error) {
+            console.error('Error al obtener el producto por ID:', error);
+            res.status(500).json({ message: 'Error interno del servidor' });
+        }
     }
-  },
-  addProduct: (req, res) => {
-    try {
 
-      console.log(req.body)
-      const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      const newProduct = {
-        id: products.length + 1,
-        title: req.body.title,
-        description: req.body.description,
-        code: req.body.code,
-        price: req.body.price,
-        status: true,
-        stock: req.body.stock,
-        category: req.body.category,
-        thumbnails: req.body.thumbnails || []
-      };
-
-      products.push(newProduct);
-      fs.writeFileSync(productosFilePath, JSON.stringify(products, null, 2));
-
-      const socketServer = req.app.get('socketServer')
-      socketServer.emit('newProduct', newProduct);
-
-      res.status(200).send(newProduct);
-
-    } catch (error) {
-      res.status(500).json({ error: 'Error al agregar el producto' });
+    async addProductController(req, res) {
+        const productData = req.body;
+        try {
+            const newProduct = await addProductDao(productData);
+            res.status(201).json({ message: 'Producto agregado exitosamente', product: newProduct });
+        } catch (error) {
+            console.error('Error al agregar el producto:', error.message);
+            res.status(400).json({ message: error.message });
+        }
     }
-  },
-  updateProduct: (req, res) => {
-    try {
-      const productId =Number(req.params.pid) ;
-      const updatedFields = req.body;
 
-      const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      const index = products.findIndex(product => product.id === productId);
-      if (index === -1) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
-      }
-
-      products[index] = { ...products[index], ...updatedFields };
-      fs.writeFileSync(productosFilePath, JSON.stringify(products, null, 2));
-
-      res.json(products[index]);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al actualizar el producto' });
+    async updateProductController(req, res) {
+        const productId = req.params.pid;
+        const newData = req.body;
+        try {
+            const updatedProduct = await updateProductDao(productId, newData);
+            if (!updatedProduct) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            res.status(200).json({ message: 'Producto actualizado correctamente', product: updatedProduct });
+        } catch (error) {
+            console.error('Error al actualizar el producto:', error);
+            res.status(500).json({ message: 'Error interno del servidor' });
+        }
     }
-  },
-  deleteProduct: (req, res) => {
-    try {
-      const productId =Number(req.params.pid) ;
-      const products = JSON.parse(fs.readFileSync(productosFilePath, 'utf-8'));
-      const filteredProducts = products.filter(product => product.id !== productId);
-      if (filteredProducts.length === products.length) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
-      }
-      fs.writeFileSync(productosFilePath, JSON.stringify(filteredProducts, null, 2));
 
-
-      res.status(200).send({ message: 'Producto eliminado correctamente' });
-    } catch (error) {
-      res.status(500).json({ error: 'Error al eliminar el producto' });
+    async deleteProductController(req, res) {
+        const productId = req.params.pid;
+        try {
+            const deletedProduct = await deleteProductDao(productId);
+            if (!deletedProduct) {
+                return res.status(404).json({ message: 'Producto no encontrado' });
+            }
+            res.status(200).json({ message: 'Producto eliminado correctamente', product: deletedProduct });
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+            res.status(500).json({ message: 'Error interno del servidor' });
+        }
     }
-  }
-};
+}
 
-export default productsController;
+export default new ProductsController();

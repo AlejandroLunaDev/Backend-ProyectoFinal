@@ -1,6 +1,6 @@
 import express from 'express';
 import productsRouter from './Routes/productsRouter.js';
-import cartsRouter from './Routes/cartsRouter.js';
+/* import cartsRouter from './Routes/cartsRouter.js'; */
 import config from './Configs/config.js';
 import {viewRouter} from './Routes/viewsRouter.js'
 import handlebars from 'express-handlebars'
@@ -8,7 +8,7 @@ import logger from 'morgan';
 import { Server } from 'socket.io';
 /* import userRouter from './Routes/userRouter.js' */
 import socket from './public/js/socket.js';
-import { connectDB } from './dao/db/mongoDb.js';
+import { connectDB } from './dao/mongoDb.js';
 
 const app = express();
 connectDB()
@@ -27,7 +27,7 @@ app.set('view engine', 'handlebars');
 
 // Rutas
 app.use('/api/products', productsRouter);
-app.use('/api/carts', cartsRouter);
+/* app.use('/api/carts', cartsRouter); */
 app.use("/",viewRouter)
 /* app.use("/api/users",userRouter) */
 

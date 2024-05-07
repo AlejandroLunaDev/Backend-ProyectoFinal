@@ -3,10 +3,10 @@ import productsController from '../Controllers/productsControllers.js';
 
 const productsRouter = express.Router();
 
-productsRouter.get('/', productsController.getAllProducts);
-productsRouter.get('/:pid', productsController.getProductById);
-productsRouter.post('/', productsController.addProduct);
-productsRouter.put('/:pid', productsController.updateProduct);
-productsRouter.delete('/:pid', productsController.deleteProduct);
+productsRouter.get('/', productsController.getAllProductsController); 
+productsRouter.get('/:pid', productsController.getProductByIdController); 
+productsRouter.post('/', productsController.addProductController); 
+productsRouter.put('/:pid', productsController.updateProductController); 
+productsRouter.delete('/:pid', productsController.deleteProductController); 
 
 export default productsRouter;
