@@ -1,23 +1,41 @@
-# Backend-ProyectoFinal
+Proyecto Ecommerce React
+Clone Musimundo
 
-<h1 align="center">Websockets + Handlebars</h1>
+Descripción
+Proyecto Final para el curso Backend de Coderhouse (Comisión 55565).
 
-<p align="center">
-    Se desarrollará un servidor que contenga los endpoints y servicios necesarios para gestionar los productos y carritos de compra en el e-commerce.
-</p>
+Tecnologias utilizadas 🛠️
+[Node] (https://nodejs.org/en) - Node.js
+[Express] (https://expressjs.com/es/) -  Infraestructura de aplicaciones web Node.js
+[MongoDB] (https://www.mongodb.com/es) - NoSQL Database
+[Boostrap] (https://getbootstrap.com/) - Framework
+Descargar y correr el proyecto
 
-**Para Iniciar el Servidor**
+Instalación 🔧
 
-`npm start`
+Para descargar el proyecto pueden descargar el repositorio en formato zip_
 
+1 - Ir a "Code" -> "Dowload Zip"
 
-**Para visitar la página**
+2 - Descomprimir el archivo
 
-https://backend-proyectofinal-kaad.onrender.com/
+3 - En la carpeta donde se encuentra en "package.json" ejecutar en una terminal:
 
-## Tecnologías Utilizadas
+npm install npm i
 
- <img src="https://i0.wp.com/www.duomimikry.de/wp-content/uploads/2016/03/js-logo.png?fit=500%2C500&ssl=1" alt="Javascript" height="50"/>&nbsp;
- <img src="https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png" alt="Node.js" height="50"/>&nbsp; 
- <img src="https://expressjs.com/images/express-facebook-share.png" alt="Express.js" height="50"/>
- 
+4 - Una vez finalizado, ejecutar:
+
+npm start o npm run dev
+
+Se abre una pestaña del navegador en el puerto 8080:
+
+Sino copiar esta URL y pegarla en el navegador: http://localhost:8080
+
+Instalación con git clone 🔧
+Se puede clonar el repositorio, ingresando a una terminal y ejecutando: git clone https://github.com/fherrera2190/Coderhouse-Proyecto-Final-Backend.git
+
+Luego continuar con el paso 3 de la otra forma
+
+Despliegue
+El proyecto fue desplegado en render para navegarlo. https://server-express-0y8z.onrender.com/ La pagina esta adaptada para que se visualice correctamente en todos los dispositivos.
+https://server-express-0y8z.onrender.com/apidocs/
