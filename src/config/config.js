@@ -16,5 +16,5 @@ const config = {
   PASS_COOKIE: process.env.PASS_COOKIE,
   MODE: process.env.MODE || "production",
 };
-console.log('cookie', config.PASS_COOKIE);
+console.log('callback url', config.CALLBACK_URL)
 module.exports = config;

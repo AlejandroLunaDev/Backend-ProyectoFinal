@@ -26,7 +26,7 @@ class SessionsRoutes extends Router {
     this.post("/register", ["PUBLIC"], register);
     this.get("/github", ["PUBLIC"], passportCall("github"));
     this.get(
-      "/callbackGitHub",
+      "/github/callback",
       ["PUBLIC"],
       passportCall("github"),
       callBackGitHub

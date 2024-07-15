@@ -43,7 +43,7 @@ const inicializaPassport = () => {
       {
         clientID: config.CLIENT_ID,
         clientSecret: config.CLIENT_SECRET,
-        callbackURL: config.SERVER + config.CALLBACK_URL,
+        callbackURL:  config.CALLBACK_URL,
       },
       async (token, tokenRefresh, profile, done) => {
         try {

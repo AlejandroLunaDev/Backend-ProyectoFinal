@@ -1,8 +1,8 @@
-Proyecto Ecommerce React
-Clone Musimundo
+Proyecto Ecommerce 
+SiLoUso
 
 Descripción
-Proyecto Final para el curso Backend de Coderhouse (Comisión 55565).
+Proyecto Final para el curso Backend de Coderhouse.
 
 Tecnologias utilizadas 🛠️
 [Node] (https://nodejs.org/en) - Node.js
@@ -32,10 +32,8 @@ Se abre una pestaña del navegador en el puerto 8080:
 Sino copiar esta URL y pegarla en el navegador: http://localhost:8080
 
 Instalación con git clone 🔧
-Se puede clonar el repositorio, ingresando a una terminal y ejecutando: git clone https://github.com/fherrera2190/Coderhouse-Proyecto-Final-Backend.git
+Se puede clonar el repositorio, ingresando a una terminal y ejecutando: git clone https://github.com/AlejandroLunaDev/Backend-ProyectoFinal
 
-Luego continuar con el paso 3 de la otra forma
 
-Despliegue
-El proyecto fue desplegado en render para navegarlo. https://server-express-0y8z.onrender.com/ La pagina esta adaptada para que se visualice correctamente en todos los dispositivos.
-https://server-express-0y8z.onrender.com/apidocs/
+
+
