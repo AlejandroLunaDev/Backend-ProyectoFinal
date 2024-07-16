@@ -1,53 +1,64 @@
-import express from 'express';
-import productsRouter from './Routes/productsRouter.js';
-/* import cartsRouter from './Routes/cartsRouter.js'; */
-import config from './Configs/config.js';
-import {viewRouter} from './Routes/viewsRouter.js'
-import handlebars from 'express-handlebars'
-import logger from 'morgan';
-import { Server } from 'socket.io';
-/* import userRouter from './Routes/userRouter.js' */
-import socket from './public/js/socket.js';
-import { connectDB } from './dao/mongoDb.js';
-
+const express = require("express");
 const app = express();
-connectDB()
+const config = require("./config/config.js");
+const factory = require("./dao/factory.js");
+const handlebars = require("express-handlebars");
+const path = require("path");
+const productsRouter = require("./routes/products.routes.js");
+const cartRouter = require("./routes/cart.routes.js");
+const sessionsRouter = require("./routes/sessions.routes");
+const usersRouter = require("./routes/users.routes.js");
+const viewRouter = require("./routes/views.routes.js");
+const { Server } = require("socket.io");
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const inicializaPassport = require("./config/passport.config");
+const { addLogger } = require("./utils/logger.js");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUiExpress = require("swagger-ui-express");
+const cors = require("cors");
+const logger = require("morgan");
 
-// Middleware para el manejo de JSON en las solicitudes
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(logger('dev'))
+app.use(express.static(path.join(__dirname + "/../public")));
+app.use(cookieParser());
+app.use(addLogger);
+app.use(logger("dev"));
 
-//Handlebars
-app.engine('handlebars', handlebars.engine())
-app.set('views', `${config.DIRNAME}/views`);
-app.set('view engine', 'handlebars');
+const specs = swaggerJSDoc(require("./utils/swaggerOptions.js"));
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
-
-
-// Rutas
-app.use('/api/products', productsRouter);
-/* app.use('/api/carts', cartsRouter); */
-app.use("/",viewRouter)
-/* app.use("/api/users",userRouter) */
-
-// Ruta estática para servir archivos estáticos
-app.use('/static', express.static(`${config.DIRNAME}/public`));
-
-
-
-// Iniciar el servidor
-const httpServer = app.listen(config.PORT, () => {
-  console.log(`Servidor escuchando en el puerto http://localhost:${config.PORT}/`);
-  config.openBrowser()
+inicializaPassport();
+app.use(passport.initialize());
+app.use((req, res, next) => {
+  req.io = io;
+  next();
 });
 
+app.set("view engine", "handlebars");
+app.engine(
+  "handlebars",
+  handlebars.engine({
+    layoutsDir: "./src/views/layouts",
+    partialsDir: "./src/views/partials",
+    defaultLayout: "main.handlebars",
+    helpers: require("./utils/helpers.js"),
+  })
+);
 
+app.set("views", path.join(__dirname + "/views"));
 
-export const io = new Server(httpServer)
-socket(io)
-/* app.set('socketServer', io) */
+// Routes
+app.use("/", viewRouter.getRouter());
+app.use("/api/products", productsRouter.getRouter());
+app.use("/api/carts", cartRouter.getRouter());
+app.use("/api/sessions", sessionsRouter.getRouter());
+app.use("/api/users", usersRouter.getRouter());
 
-
-
-
+const serverExpress = app.listen(config.PORT, () =>
+  console.log(`Server running on http://localhost:${config.PORT}`)
+);
+const io = new Server(serverExpress);
+require("./sockets/socket")(io);
