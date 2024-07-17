@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8080'; // Reemplaza con la URL base de tu backend
 
-export const getProducts = async (page = 1, limit = 10, sortOrder = 'desc', sortBy = 'createdAt') => {
+export const getProducts = async (page = 1, limit = 10, sortOrder = 'desc', sortBy = 'created_at') => {
   try {
     const url = `${BASE_URL}/api/products/paginate?page=${page}&limit=${limit}&sort=${sortOrder}&sortBy=${sortBy}`;
     const response = await fetch(url, {

@@ -2,15 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // Products.js
 import { useState, useEffect } from 'react';
-import {
-  getProducts,
-  deleteProduct,
-} from '../../services/productService';
+import { getProducts, deleteProduct } from '../../services/productService';
 import { Button } from '@mui/material';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-import { MdModeEditOutline } from "react-icons/md";
-import { PiTrashLight } from "react-icons/pi";
+import { MdModeEditOutline } from 'react-icons/md';
+import { PiTrashLight } from 'react-icons/pi';
 import EditProduct from './components/EditProduct';
 
 const Products = () => {
@@ -27,7 +24,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await getProducts(currentPage, 10);
+      const response = await getProducts(currentPage, 10, sortOrder, sortBy);
       if (response) {
         setProducts(response.products);
         setTotalPages(response.totalPages);
@@ -120,36 +117,41 @@ const Products = () => {
         />
       ) : (
         <>
-          <label htmlFor='sortSelect' className='mr-2'>
-            Ordenado por:
-          </label>
-          <select
-            id='sortSelect'
-            value={sortOrder}
-            onChange={handleChangeSortOrder}
-            className='mb-4 border p-1 rounded-xl'
-          >
-            <option value='desc'>Más caro a más barato</option>
-            <option value='asc'>Más barato a más caro</option>
-          </select>
-          <div className='flex justify-center my-5'>
-            <button
-              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-              className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
-            >
-              &laquo;
-            </button>
-            {renderPageNumbers()}
-            <button
-              onClick={() =>
-                handlePageChange(Math.min(totalPages, currentPage + 1))
-              }
-              className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
-            >
-              &raquo;
-            </button>
+          <div className='px-4 flex  items-center justify-between '>
+          <div className='flex items-center gap-3'>
+              <label htmlFor='sortSelect'>Ordenado por:</label>
+              <select
+                id='sortSelect'
+                value={sortOrder}
+                onChange={handleChangeSortOrder}
+                className=' border p-1 rounded-xl'
+              >
+                <option value='desc'>Más caro a más caro</option>
+                <option value='asc'>Más barato a más barato</option>
+                <option value='created_at'>Fecha más antigua</option>
+                <option value='updated_at'>Fecha más reciente</option>
+              </select>
+            </div>
+            <div className='flex justify-center my-5'>
+              <button
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
+              >
+                &laquo;
+              </button>
+              {renderPageNumbers()}
+              <button
+                onClick={() =>
+                  handlePageChange(Math.min(totalPages, currentPage + 1))
+                }
+                className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
+              >
+                &raquo;
+              </button>
+            </div>
+      
           </div>
-          <table className='border-collapse border border-gray-300'>
+          <table className='w-full border-collapse border border-gray-300'>
             <thead>
               <tr>
                 <th className='border border-gray-300 px-4 py-2'>ID</th>
@@ -159,9 +161,7 @@ const Products = () => {
                 <th className='border border-gray-300 px-4 py-2'>Stock</th>
                 <th className='border border-gray-300 px-4 py-2'>Categoría</th>
                 <th className='border border-gray-300 px-4 py-2'>Fecha</th>
-                <th className='border border-gray-300 px-4 py-2'>
-                  Opciones
-                </th>
+                <th className='border border-gray-300 px-4 py-2'>Opciones</th>
               </tr>
             </thead>
             <tbody>
@@ -194,20 +194,18 @@ const Products = () => {
                   </td>
                   <td className='border border-gray-300 px-4 py-2'>
                     <div className='flex justify-center items-center gap-4'>
-
-                    <button
-                      onClick={() => handleEditProduct(product._id)}
-                      className='hover:bg-gray-200 border-blue-500 px-4 py-2 border flex flex-col justify-center items-center text-blue-500 rounded'
-    
-                    >
-                      <MdModeEditOutline />
-                    </button>
-                    <button
-                    className='hover:scale-110 border-red-600 px-4 py-2 border flex flex-col justify-center items-center text-red-600 rounded'
-                      onClick={() => handleDeleteProduct(product._id)}
-                    >
-                      <PiTrashLight />
-                    </button>
+                      <button
+                        onClick={() => handleEditProduct(product._id)}
+                        className='hover:bg-gray-200 border-blue-500 px-4 py-2 border flex flex-col justify-center items-center text-blue-500 rounded'
+                      >
+                        <MdModeEditOutline />
+                      </button>
+                      <button
+                        className='hover:scale-110 border-red-600 px-4 py-2 border flex flex-col justify-center items-center text-red-600 rounded'
+                        onClick={() => handleDeleteProduct(product._id)}
+                      >
+                        <PiTrashLight />
+                      </button>
                     </div>
                   </td>
                 </tr>
