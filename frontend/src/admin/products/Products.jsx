@@ -70,10 +70,7 @@ const Products = () => {
       console.error('Error fetching product:', error);
     }
   };
-  
-  useEffect(() => {
-    console.log('selectedProduct updated:', selectedProduct);
-  }, [selectedProduct]);
+
   const handleCloseModal = () => {
     setSelectedProduct(null);
     setOpenModal(false);
@@ -82,17 +79,21 @@ const Products = () => {
   const handleEditProduct = async () => {
     try {
       // Verificar que selectedProduct y selectedProduct.payload estén definidos
-      if (!selectedProduct || !selectedProduct.payload || !selectedProduct.payload._id) {
+      if (
+        !selectedProduct ||
+        !selectedProduct.payload ||
+        !selectedProduct.payload._id
+      ) {
         console.error('El producto seleccionado o su _id son inválidos.');
         return;
       }
-  
+
       // Depuración para verificar el _id antes de la solicitud PUT
       console.log('ID del producto a actualizar:', selectedProduct.payload._id);
-  
+
       // Llamar a updateProduct con el _id y el producto actualizado
       await updateProduct(selectedProduct.payload._id, selectedProduct.payload);
-  
+
       // Recargar productos después de la edición
       fetchProducts();
       handleCloseModal();
@@ -102,9 +103,6 @@ const Products = () => {
       mostrarAlerta('Error al actualizar el producto', 'red');
     }
   };
-  
-  
-  
 
   const handleChangeSortOrder = e => {
     const newSortOrder = e.target.value;
@@ -118,7 +116,10 @@ const Products = () => {
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const maxVisiblePages = 3;
-    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const startPage = Math.max(
+      1,
+      currentPage - Math.floor(maxVisiblePages / 2)
+    );
     const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
     for (let i = startPage; i <= endPage; i++) {
@@ -127,7 +128,9 @@ const Products = () => {
           key={i}
           onClick={() => handlePageChange(i)}
           className={`mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md ${
-            currentPage === i ? 'bg-[#61005D] text-white' : 'bg-white text-black'
+            currentPage === i
+              ? 'bg-[#61005D] text-white'
+              : 'bg-white text-black'
           }`}
         >
           {i}
@@ -138,7 +141,7 @@ const Products = () => {
   };
 
   return (
-    <div className='container mx-auto mt-8'>
+    <div className='container mx-auto mt-8 '>
       <label htmlFor='sortSelect' className='mr-2'>
         Ordenado por:
       </label>
@@ -151,6 +154,23 @@ const Products = () => {
         <option value='desc'>Más caro a más barato</option>
         <option value='asc'>Más barato a más caro</option>
       </select>
+      <div className='flex justify-center my-5'>
+        <button
+          onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+          className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
+        >
+          &laquo;
+        </button>
+        {renderPageNumbers()}
+        <button
+          onClick={() =>
+            handlePageChange(Math.min(totalPages, currentPage + 1))
+          }
+          className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
+        >
+          &raquo;
+        </button>
+      </div>
       <table className='w-full border-collapse border border-gray-300'>
         <thead>
           <tr>
@@ -227,147 +247,147 @@ const Products = () => {
         </button>
         {renderPageNumbers()}
         <button
-          onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+          onClick={() =>
+            handlePageChange(Math.min(totalPages, currentPage + 1))
+          }
           className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
         >
           &raquo;
         </button>
       </div>
       <Modal
-  open={openModal}
-  onClose={handleCloseModal}
-  aria-labelledby='modal-modal-title'
-  aria-describedby='modal-modal-description'
->
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 400,
-      bgcolor: 'background.paper',
-      border: '2px solid #000',
-      boxShadow: 24,
-      p: 4
-    }}
-  >
-    {selectedProduct && (
-      <>
-        <h2 id='modal-modal-title' className='text-center'>
-          Editar Producto
-        </h2>
-        <div className='flex justify-center'>
-          <img
-            className='w-32 h-32 mb-4'
-            src={selectedProduct.payload.thumbnails}
-            alt={selectedProduct.payload.title}
-          />
-        </div>
-        <div className='my-2'>
-          <label htmlFor='title' className='block'>
-            Título:
-          </label>
-          <TextField
-            id='title'
-            fullWidth
-            value={selectedProduct.payload.title}
-            onChange={e =>
-              setSelectedProduct({
-                ...selectedProduct,
-                payload: {
-                  ...selectedProduct.payload,
-                  title: e.target.value
-                }
-              })
-            }
-            className='my-2'
-          />
-        </div>
-        <div className='my-2'>
-          <label htmlFor='price' className='block'>
-            Precio:
-          </label>
-          <TextField
-            id='price'
-            fullWidth
-            value={selectedProduct.payload.price}
-            onChange={e =>
-              setSelectedProduct({
-                ...selectedProduct,
-                payload: {
-                  ...selectedProduct.payload,
-                  price: e.target.value
-                }
-              })
-            }
-            className='my-2'
-          />
-        </div>
-        <div className='my-2'>
-          <label htmlFor='stock' className='block'>
-            Stock:
-          </label>
-          <TextField
-            id='stock'
-            fullWidth
-            value={selectedProduct.payload.stock}
-            onChange={e =>
-              setSelectedProduct({
-                ...selectedProduct,
-                payload: {
-                  ...selectedProduct.payload,
-                  stock: e.target.value
-                }
-              })
-            }
-            className='my-2'
-          />
-        </div>
-        <div className='my-2'>
-          <label htmlFor='category' className='block'>
-            Categoría:
-          </label>
-          <TextField
-            id='category'
-            fullWidth
-            value={selectedProduct.payload.category}
-            onChange={e =>
-              setSelectedProduct({
-                ...selectedProduct,
-                payload: {
-                  ...selectedProduct.payload,
-                  category: e.target.value
-                }
-              })
-            }
-            className='my-2'
-          />
-        </div>
-        <div className='flex justify-center mt-4'>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={handleEditProduct}
-            className='mx-2'
-          >
-            Guardar Cambios
-          </Button>
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={handleCloseModal}
-            className='mx-2'
-          >
-            Cancelar
-          </Button>
-        </div>
-      </>
-    )}
-  </Box>
-</Modal>
-
-
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4
+          }}
+        >
+          {selectedProduct && (
+            <>
+              <h2 id='modal-modal-title' className='text-center'>
+                Editar Producto
+              </h2>
+              <div className='flex justify-center'>
+                <img
+                  className='w-32 h-32 mb-4'
+                  src={selectedProduct.payload.thumbnails}
+                  alt={selectedProduct.payload.title}
+                />
+              </div>
+              <div className='my-2'>
+                <label htmlFor='title' className='block'>
+                  Título:
+                </label>
+                <TextField
+                  id='title'
+                  fullWidth
+                  value={selectedProduct.payload.title}
+                  onChange={e =>
+                    setSelectedProduct({
+                      ...selectedProduct,
+                      payload: {
+                        ...selectedProduct.payload,
+                        title: e.target.value
+                      }
+                    })
+                  }
+                  className='my-2'
+                />
+              </div>
+              <div className='my-2'>
+                <label htmlFor='price' className='block'>
+                  Precio:
+                </label>
+                <TextField
+                  id='price'
+                  fullWidth
+                  value={selectedProduct.payload.price}
+                  onChange={e =>
+                    setSelectedProduct({
+                      ...selectedProduct,
+                      payload: {
+                        ...selectedProduct.payload,
+                        price: e.target.value
+                      }
+                    })
+                  }
+                  className='my-2'
+                />
+              </div>
+              <div className='my-2'>
+                <label htmlFor='stock' className='block'>
+                  Stock:
+                </label>
+                <TextField
+                  id='stock'
+                  fullWidth
+                  value={selectedProduct.payload.stock}
+                  onChange={e =>
+                    setSelectedProduct({
+                      ...selectedProduct,
+                      payload: {
+                        ...selectedProduct.payload,
+                        stock: e.target.value
+                      }
+                    })
+                  }
+                  className='my-2'
+                />
+              </div>
+              <div className='my-2'>
+                <label htmlFor='category' className='block'>
+                  Categoría:
+                </label>
+                <TextField
+                  id='category'
+                  fullWidth
+                  value={selectedProduct.payload.category}
+                  onChange={e =>
+                    setSelectedProduct({
+                      ...selectedProduct,
+                      payload: {
+                        ...selectedProduct.payload,
+                        category: e.target.value
+                      }
+                    })
+                  }
+                  className='my-2'
+                />
+              </div>
+              <div className='flex justify-center mt-4'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleEditProduct}
+                  className='mx-2'
+                >
+                  Guardar Cambios
+                </Button>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={handleCloseModal}
+                  className='mx-2'
+                >
+                  Cancelar
+                </Button>
+              </div>
+            </>
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const navItems = [
 
 export default function ListNav() {
   return (
-    <ul className='h-dvh flex flex-col gap-3 px-4 text-[1.5rem] text-gray-600'>
+    <ul className=' flex flex-col gap-3 px-4 text-[1.5rem] text-gray-600'>
       {navItems.map((item, index) => (
         <NavLink
           key={index}

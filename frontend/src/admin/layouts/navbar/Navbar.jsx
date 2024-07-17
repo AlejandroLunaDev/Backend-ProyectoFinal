@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <>
     
-    <nav className=" h-dvh w-80 border border-orange-400">
+    <nav className="  w-80 border border-orange-400">
         <div>
             <h1>Admin</h1>
         </div>
