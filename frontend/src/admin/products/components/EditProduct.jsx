@@ -138,7 +138,7 @@ const EditProduct = ({ productId, onCancel, onSave }) => {
             </div>
         <div className="flex justify-center items-end mt-4 gap-4">
           <button
-            className="px-4 py-2 h-10 bg-green-500 text-white rounded"
+            className="px-4 py-2 h-10 bg-[#61005D] text-white rounded"
             onClick={handleSave}
           >
             Guardar Cambios

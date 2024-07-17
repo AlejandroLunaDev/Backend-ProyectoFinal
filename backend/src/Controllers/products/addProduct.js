@@ -5,8 +5,9 @@ const { generateProductErrorInfo } = require("../../utils/CustomErrors/info");
 
 module.exports = async (req, res) => {
   try {
-    const { title, description, price, code, stock, category } = req.body;
-    if (!title || !description || !price || !code || !stock || !category) {
+    const { title, description, price, code, stock, category,thumbnails } = req.body;
+  
+    if (!title || !description || !price || !code || !stock || !category || !thumbnails) {
       CustomError.createError({
         name: "Error Creating Product",
         cause: generateProductErrorInfo({
@@ -16,6 +17,7 @@ module.exports = async (req, res) => {
           price,
           stock,
           category,
+          thumbnails
         }),
         message: "Error to create a product",
         code: EErrors.INVALID_TYPE_ERROR,

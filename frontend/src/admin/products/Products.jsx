@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-// Products.js
 import { useState, useEffect } from 'react';
 import { getProducts, deleteProduct } from '../../services/productService';
 import { Button } from '@mui/material';
@@ -9,6 +8,7 @@ import 'toastify-js/src/toastify.css';
 import { MdModeEditOutline } from 'react-icons/md';
 import { PiTrashLight } from 'react-icons/pi';
 import EditProduct from './components/EditProduct';
+import AddProduct from './components/AddProduct'; // Importa el componente AddProduct
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -17,6 +17,7 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [editingProductId, setEditingProductId] = useState(null);
+  const [addingProduct, setAddingProduct] = useState(false); // Estado para controlar la adición de producto
 
   useEffect(() => {
     fetchProducts();
@@ -109,7 +110,12 @@ const Products = () => {
 
   return (
     <div className='container mx-auto mt-8 px-4 py-4'>
-      {editingProductId ? (
+      <header>
+        <h1 className='text-2xl font-bold mb-4'>Lista de Productos</h1>
+      </header>
+      {addingProduct ? (
+        <AddProduct onCancel={() => setAddingProduct(false)} />
+      ) : editingProductId ? (
         <EditProduct
           productId={editingProductId}
           onCancel={handleCancelEdit}
@@ -118,21 +124,15 @@ const Products = () => {
       ) : (
         <>
           <div className='px-4 flex  items-center justify-between '>
-          <div className='flex items-center gap-3'>
-              <label htmlFor='sortSelect'>Ordenado por:</label>
-              <select
-                id='sortSelect'
-                value={sortOrder}
-                onChange={handleChangeSortOrder}
-                className=' border p-1 rounded-xl'
-              >
-                <option value='desc'>Más caro a más caro</option>
-                <option value='asc'>Más barato a más barato</option>
-                <option value='created_at'>Fecha más antigua</option>
-                <option value='updated_at'>Fecha más reciente</option>
-              </select>
-            </div>
-            <div className='flex justify-center my-5'>
+          <div className='flex justify-end mb-4'>
+            <button
+              onClick={() => setAddingProduct(true)} // Botón para añadir producto
+              className='bg-[#61005D] text-white py-2 px-4 rounded-md'
+            >
+              Agregar Producto
+            </button>
+          </div>
+          <div className='flex justify-center my-5'>
               <button
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
@@ -149,8 +149,23 @@ const Products = () => {
                 &raquo;
               </button>
             </div>
-      
+            <div className='flex items-center gap-3'>
+              <label htmlFor='sortSelect'>Ordenado por:</label>
+              <select
+                id='sortSelect'
+                value={sortOrder}
+                onChange={handleChangeSortOrder}
+                className=' border p-1 rounded-xl'
+              >
+                <option value='desc'>Más caro</option>
+                <option value='asc'>Más barato </option>
+                <option value='created_at'>Fecha más antigua</option>
+                <option value='updated_at'>Fecha más reciente</option>
+              </select>
+            </div>
+  
           </div>
+   
           <table className='w-full border-collapse border border-gray-300'>
             <thead>
               <tr>
@@ -221,9 +236,7 @@ const Products = () => {
             </button>
             {renderPageNumbers()}
             <button
-              onClick={() =>
-                handlePageChange(Math.min(totalPages, currentPage + 1))
-              }
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
               className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
             >
               &raquo;

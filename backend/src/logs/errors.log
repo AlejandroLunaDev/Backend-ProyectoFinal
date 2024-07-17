@@ -143,3 +143,35 @@ error: Invalid login: 535-5.7.8 Username and Password not accepted. For more inf
 error: null
 error: getaddrinfo ENOTFOUND ac-ql0qjp6-shard-00-02.jqvmrup.mongodb.net
 error: getaddrinfo ENOTFOUND ac-ql0qjp6-shard-00-02.jqvmrup.mongodb.net
+error: One or more properties were incomplete or not valid.
+        List of required properties:
+        * title: needs to be a String received, prueba
+        * description: needs to be a String received, prueba
+        * code: needs to be a String received, undefined
+        * price: needs to be a Number received, 12
+        * stock: needs to be a Number received, 12
+        * category: needs to be a String received, prueba
+error: One or more properties were incomplete or not valid.
+        List of required properties:
+        * title: needs to be a String received, prueba
+        * description: needs to be a String received, prueba
+        * code: needs to be a String received, undefined
+        * price: needs to be a Number received, 12
+        * stock: needs to be a Number received, 12
+        * category: needs to be a String received, prueba
+error: One or more properties were incomplete or not valid.
+        List of required properties:
+        * title: needs to be a String received, prueba
+        * description: needs to be a String received, prueba
+        * code: needs to be a String received, undefined
+        * price: needs to be a Number received, 12
+        * stock: needs to be a Number received, 12
+        * category: needs to be a String received, prueba
+error: One or more properties were incomplete or not valid.
+        List of required properties:
+        * title: needs to be a String received, prueba
+        * description: needs to be a String received, prueba
+        * code: needs to be a String received, undefined
+        * price: needs to be a Number received, 12
+        * stock: needs to be a Number received, 12
+        * category: needs to be a String received, prueba
