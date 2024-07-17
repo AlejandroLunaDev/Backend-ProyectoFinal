@@ -12,7 +12,6 @@ export const getProducts = async (page = 1, limit = 10, sortOrder = 'desc', sort
       throw new Error('Failed to fetch products');
     }
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error('API Error:', error);
