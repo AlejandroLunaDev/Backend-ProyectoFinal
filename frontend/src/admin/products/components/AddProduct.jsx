@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { createProduct } from '../../../services/productService';
+import { createProduct } from '../../../services/products';
 import PropTypes from 'prop-types';
 
 const AddProduct = ({ onCancel }) => {

@@ -4,7 +4,7 @@ import {
   deleteUser,
   deleteInactiveUsers,
   updateUserRole
-} from '../services';
+} from '../services/users';
 import { FaTrash, FaCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
