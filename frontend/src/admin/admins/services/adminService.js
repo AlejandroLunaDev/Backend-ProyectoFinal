@@ -1,33 +1,14 @@
 const BASE_URL = 'http://localhost:8080';
 
-export const getUsers = async () => {
+export const getAdminUsers = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/api/users`, {
+        const response = await fetch(`${BASE_URL}/api/users/admin`, {
             method: 'GET',
             headers: { 'Content-type': 'application/json' },
             credentials: 'include',
         });
         if (!response.ok) {
-            throw new Error('Failed to fetch users');
-        }
-        const data = await response.json();
-      
-        return data;
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
-    }
-};
-
-export const getUserById = async (userId) => {
-    try {
-        const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
-            method: 'GET',
-            headers: { 'Content-type': 'application/json' },
-            credentials: 'include',
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch user');
+            throw new Error('Failed to fetch admin users');
         }
         const data = await response.json();
         console.log(data);
@@ -36,9 +17,7 @@ export const getUserById = async (userId) => {
         console.error('API Error:', error);
         throw error;
     }
-}
-
-
+};
 
 export const deleteUser = async (userId) => {
     try {
@@ -58,29 +37,6 @@ export const deleteUser = async (userId) => {
         throw error;
     }
 }
-
-export const deleteInactiveUsers = async () => {
-    try {
-        const usersData = await getUsers();
-        const users = usersData.users;
-
-        const inactiveUsers = users.filter(user => {
-            const lastConnectionDate = new Date(user.last_connection);
-            const now = new Date();
-            const differenceInDays = (now - lastConnectionDate) / (1000 * 3600 * 24);
-            return differenceInDays > 3;
-        });
-
-        const deletePromises = inactiveUsers.map(user => deleteUser(user._id));
-        await Promise.all(deletePromises);
-        console.log(`Deleted ${inactiveUsers.length} inactive users`);
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
-    }
-};
-
-// services/usersService.js
 
 export const updateUserRole = async (userId, newRole) => {
     try {
@@ -103,6 +59,21 @@ export const updateUserRole = async (userId, newRole) => {
       throw error;
     }
   };
-  
 
-  
+  export const getUsers = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/users`, {
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch users');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
+};

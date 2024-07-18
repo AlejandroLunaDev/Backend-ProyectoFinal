@@ -4,14 +4,14 @@
 //ICONS
 import { MdModeEditOutline } from 'react-icons/md';
 import { PiTrashLight } from 'react-icons/pi';
-import { IoAdd } from "react-icons/io5";
+import { IoAdd } from 'react-icons/io5';
 
 import { useState, useEffect } from 'react';
 import { getProducts, deleteProduct } from '../../services/productService';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import EditProduct from './components/EditProduct';
-import AddProduct from './components/AddProduct'; 
+import AddProduct from './components/AddProduct';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -113,9 +113,6 @@ const Products = () => {
 
   return (
     <div className='container mx-auto mt-8 px-4 py-4'>
-      <header>
-        <h1 className='text-2xl font-bold mb-4'>Lista de Productos</h1>
-      </header>
       {addingProduct ? (
         <AddProduct onCancel={() => setAddingProduct(false)} />
       ) : editingProductId ? (
@@ -126,17 +123,20 @@ const Products = () => {
         />
       ) : (
         <>
+          <header>
+            <h1 className='text-2xl font-bold mb-4'>Lista de Productos</h1>
+          </header>
           <div className='px-4 flex  items-center justify-between '>
-          <div className='flex justify-end mb-4'>
-            <button
-              onClick={() => setAddingProduct(true)} // Botón para añadir producto
-              className='bg-[#61005D] text-white py-2 px-4 rounded-md flex items-center gap-2'
-            >
-              <IoAdd size={20} />
-              Agregar Producto
-            </button>
-          </div>
-          <div className='flex justify-center my-5'>
+            <div className='flex justify-end mb-4'>
+              <button
+                onClick={() => setAddingProduct(true)} // Botón para añadir producto
+                className='bg-[#61005D] text-white py-2 px-4 rounded-md flex items-center gap-2'
+              >
+                <IoAdd size={20} />
+                Agregar Producto
+              </button>
+            </div>
+            <div className='flex justify-center my-5'>
               <button
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
@@ -167,9 +167,8 @@ const Products = () => {
                 <option value='updated_at'>Fecha más reciente</option>
               </select>
             </div>
-  
           </div>
-   
+
           <table className='w-full border-collapse border border-gray-300'>
             <thead>
               <tr>
@@ -240,7 +239,9 @@ const Products = () => {
             </button>
             {renderPageNumbers()}
             <button
-              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+              onClick={() =>
+                handlePageChange(Math.min(totalPages, currentPage + 1))
+              }
               className='mx-1 w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md bg-white text-black'
             >
               &raquo;

@@ -7,6 +7,7 @@ const {
   deleteUser,
   deleteAllUsersInactive,
   updateRole,
+  getAdminUsers
 } = require("../controllers/user.controller");
 const uploader = require("../middlewares/multer");
 const { getPorudctsByUid } = require("../controllers/products.controller");
@@ -15,6 +16,7 @@ class UserRoutes extends Router {
   init() {
     this.get("/premium/:uid", ["ADMIN"], userPremium);
     this.get("/", ["ADMIN"], getUsers);
+    this.get("/admin", ["ADMIN"], getAdminUsers);
     this.get("/:uid/products", ["USER", "PREMIUM"], getPorudctsByUid);
     this.post(
       "/imageProfile",
@@ -36,6 +38,7 @@ class UserRoutes extends Router {
     this.delete("/:uid", ["ADMIN"], deleteUser);
     this.delete("/", ["ADMIN"], deleteAllUsersInactive);
     this.put("/:uid/role", ["ADMIN"], updateRole);
+
   }
 }
 

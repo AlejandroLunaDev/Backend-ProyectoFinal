@@ -5,7 +5,8 @@ const usersController = {
   changeImageProfile: require("./users/changeImageProfile"),
   deleteUser: require("./users/deleteUser"),
   deleteAllUsersInactive:require('./users/deleteAllUsersInactive'),
-  updateRole: require("./users/updateRole")
+  updateRole: require("./users/updateRole"),
+  getAdminUsers: require("./users/getAdminUsers"),
   
 };
 

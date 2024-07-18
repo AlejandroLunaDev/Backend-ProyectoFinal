@@ -1,11 +1,9 @@
-// Users.js
-
 import { useEffect, useState } from 'react';
 import {
   getUsers,
   deleteUser,
   deleteInactiveUsers,
-  updateUserRole // Importa la función de servicio para actualizar el rol del usuario
+  updateUserRole
 } from './services/usersService';
 import { FaTrash, FaCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -56,34 +54,31 @@ const Users = () => {
     }
   };
 
-// Users.js
+  const handleChangeRole = async (userId, newRole) => {
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Esta acción cambiará el rol del usuario a ${newRole}.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cambiar rol'
+    });
 
-const handleChangeRole = async (userId, newRole) => {
-  const result = await Swal.fire({
-    title: '¿Estás seguro?',
-    text: `Esta acción cambiará el rol del usuario a ${newRole}.`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, cambiar rol'
-  });
-
-  if (result.isConfirmed) {
-    await updateUserRole(userId, newRole); // Asegúrate de pasar solo el nuevo rol
-    // Actualiza la lista de usuarios después de cambiar el rol
-    const updatedUsers = users.map(user =>
-      user._id === userId ? { ...user, role: newRole } : user
-    );
-    setUsers(updatedUsers);
-    Swal.fire(
-      'Rol cambiado!',
-      `El rol del usuario ha sido cambiado a ${newRole}.`,
-      'success'
-    );
-  }
-};
-
+    if (result.isConfirmed) {
+      await updateUserRole(userId, newRole); // Asegúrate de pasar solo el nuevo rol
+      // Actualiza la lista de usuarios después de cambiar el rol
+      const updatedUsers = users.map(user =>
+        user._id === userId ? { ...user, role: newRole } : user
+      );
+      setUsers(updatedUsers);
+      Swal.fire(
+        'Rol cambiado!',
+        `El rol del usuario ha sido cambiado a ${newRole}.`,
+        'success'
+      );
+    }
+  };
 
   if (!users.length) return <p>Loading...</p>;
 

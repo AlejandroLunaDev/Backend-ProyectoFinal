@@ -43,7 +43,7 @@ const AddProduct = ({ onCancel }) => {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4 py-4">
+    <div className=" h-dvh  container mx-auto mt-8 px-4 py-4">
       <header>
         <h1 className="text-2xl font-bold mb-4">Agregar Nuevo Producto</h1>
       </header>
