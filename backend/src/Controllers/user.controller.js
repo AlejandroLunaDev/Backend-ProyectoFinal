@@ -4,7 +4,9 @@ const usersController = {
   getUsers: require("./users/getUsers"),
   changeImageProfile: require("./users/changeImageProfile"),
   deleteUser: require("./users/deleteUser"),
-  deleteAllUsersInactive:require('./users/deleteAllUsersInactive')
+  deleteAllUsersInactive:require('./users/deleteAllUsersInactive'),
+  updateRole: require("./users/updateRole")
+  
 };
 
 module.exports = usersController;

@@ -6,6 +6,7 @@ const {
   changeImageProfile,
   deleteUser,
   deleteAllUsersInactive,
+  updateRole,
 } = require("../controllers/user.controller");
 const uploader = require("../middlewares/multer");
 const { getPorudctsByUid } = require("../controllers/products.controller");
@@ -34,6 +35,7 @@ class UserRoutes extends Router {
     );
     this.delete("/:uid", ["ADMIN"], deleteUser);
     this.delete("/", ["ADMIN"], deleteAllUsersInactive);
+    this.put("/:uid/role", ["ADMIN"], updateRole);
   }
 }
 

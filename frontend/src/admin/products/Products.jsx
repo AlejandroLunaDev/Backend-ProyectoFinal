@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { getProducts, deleteProduct } from '../../services/productService';
-import { Button } from '@mui/material';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+
+//ICONS
 import { MdModeEditOutline } from 'react-icons/md';
 import { PiTrashLight } from 'react-icons/pi';
+import { IoAdd } from "react-icons/io5";
+
+import { useState, useEffect } from 'react';
+import { getProducts, deleteProduct } from '../../services/productService';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 import EditProduct from './components/EditProduct';
-import AddProduct from './components/AddProduct'; // Importa el componente AddProduct
+import AddProduct from './components/AddProduct'; 
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -127,8 +130,9 @@ const Products = () => {
           <div className='flex justify-end mb-4'>
             <button
               onClick={() => setAddingProduct(true)} // Botón para añadir producto
-              className='bg-[#61005D] text-white py-2 px-4 rounded-md'
+              className='bg-[#61005D] text-white py-2 px-4 rounded-md flex items-center gap-2'
             >
+              <IoAdd size={20} />
               Agregar Producto
             </button>
           </div>
