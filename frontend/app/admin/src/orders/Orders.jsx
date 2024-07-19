@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { getTickets } from '../services/orders/getTickets';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
@@ -57,7 +57,7 @@ export default function Orders() {
 
   return (
     <section className=" h-dvh p-6 bg-gray-50">
-      <h1 className="text-3xl font-extrabold text-gray-800 mb-6">Orders</h1>
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-6">Pedidos</h1>
       
       {/* Sorting select input */}
       <div className="mb-4">

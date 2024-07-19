@@ -116,7 +116,7 @@ export default function Admins() {
   return (
     <section className='p-4'>
       <div className='h-dvh overflow-x-auto'>
-        <h1 className='text-2xl font-bold mb-4'>Admins</h1>
+        <h1 className='text-3xl font-extrabold text-gray-800 mb-6'>Admins</h1>
         <div className='mb-4 flex'>
           <input
             type='email'
@@ -135,7 +135,7 @@ export default function Admins() {
           </button>
         </div>
         {addError && <p className='text-red-500'>{addError}</p>}
-        <table className='min-w-full bg-white'>
+        <table className='min-w-full bg-white shadow-md rounded-lg border border-gray-200'>
           <thead>
             <tr>
               <th className='py-2 px-4 border-b text-left'>Nombre</th>

@@ -6,10 +6,14 @@ export default function Navbar() {
   return (
     <>
     
-    <nav className=" w-80 border border-orange-400">
-        <div>
-            <h1>Admin</h1>
-        </div>
+    <nav className=" w-80 border border-[#61005D] p-4">
+        <header>
+          <figure className="flex items-center justify-center">
+
+            <img src="/brand.svg" alt="silouso-brand" />
+          </figure>
+            <h1 className="text-xl font-semibold text-gray-800">Bienvenido Admin!</h1>
+        </header>
         <div className="mt-8">
             <ListNav />
         </div>
