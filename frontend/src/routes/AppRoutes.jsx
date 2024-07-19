@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import AdminApp from "../admin/AdminApp";
+import AdminApp from '../../app/admin/src/AdminApp';
 
 export default function AppRoutes() {
   return (
@@ -11,4 +11,3 @@ export default function AppRoutes() {
     </BrowserRouter>
   );
 }
-
