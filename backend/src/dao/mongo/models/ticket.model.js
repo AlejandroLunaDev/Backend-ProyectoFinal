@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const collection = "tickets";
-
-const ticketSchema = new mongoose.Schema(
+const ticketSchema = new Schema(
   {
     code: {
       type: String,
@@ -10,14 +8,29 @@ const ticketSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
-      require: true
+      required: true
     },
+    products: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: "products" },
+        quantity: { type: Number, default: 1 }
+      }
+    ],
     purchaser: {
       type: String,
-      require: true
+      required: true
     }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model(collection, ticketSchema);
+// Middleware `pre` para `find` y `findOne` para hacer populate automáticamente
+ticketSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'products.product',
+    select: 'title price' // Incluye los campos que necesites
+  });
+  next();
+});
+
+module.exports = model("tickets", ticketSchema);

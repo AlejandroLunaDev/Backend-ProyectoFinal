@@ -180,3 +180,6 @@ error: this.isActive is not a function
 error: Cast to ObjectId failed for value "{ _id: 'inactive' }" (type Object) at path "_id" for model "users"
 error: undefined
 error: Cannot read properties of null (reading 'email')
+error: Cannot access 'ticketDto' before initialization
+error: Ticket is not a constructor
+error: null

@@ -5,12 +5,14 @@ class TicketService {
     this.dao = new dao();
   }
   async getTickets() {
-    return await this.dao.get();
+    return await this.dao.getTickets();
   }
-  async create(ticket) {
-    const ticketDto = new Ticket(ticket);
-    return await this.dao.createTicket(ticketDto);
+  async create(ticketData) {
+    console.log('Creating Ticket with Data:', ticketData);
+    return await this.dao.createTicket(ticketData);
   }
+  
+  
   async getTicketById(cid) {
     return await this.dao.getTicketById(cid);
   }

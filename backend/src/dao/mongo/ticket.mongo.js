@@ -14,7 +14,7 @@ class Ticket {
   }
 
   async createTicket(ticket) {
-
+    console.log('Creating Ticket with Data using DAO:', ticket);
     return await ticketModel.create(ticket);
   }
 }

@@ -18,6 +18,7 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 const cors = require("cors");
 const logger = require("morgan");
+const ticketRoutes = require("./Routes/ticket.routes");
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -59,6 +60,7 @@ app.use("/api/products", productsRouter.getRouter());
 app.use("/api/carts", cartRouter.getRouter());
 app.use("/api/sessions", sessionsRouter.getRouter());
 app.use("/api/users", usersRouter.getRouter());
+app.use("/api/tickets", ticketRoutes);
 
 const serverExpress = app.listen(config.PORT, () =>
   console.log(`Server running on http://localhost:${config.PORT}`)

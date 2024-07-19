@@ -3,7 +3,8 @@ class TicketResponse {
     this.code = ticket.code;
     this.amount = ticket.amount;
     this.purchaser = ticket.purchaser;
-    this.purchase_datatime = ticket.createdAt;
+    this.purchase_datetime = ticket.createdAt;
+    this.products = ticket.products;
   }
 }
 
