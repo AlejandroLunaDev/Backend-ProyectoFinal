@@ -6,6 +6,8 @@ import { HiOutlineUsers } from 'react-icons/hi2';
 import { IoLogOutOutline } from 'react-icons/io5';
 
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../../../../../auth/hook/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const navItems = [
   { to: 'dashboard', icon: <GoHome />, label: 'Panel' },
@@ -16,6 +18,13 @@ const navItems = [
 ];
 
 export default function ListNav() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
   return (
     <ul className=' flex flex-col gap-3  text-[1.5rem] text-gray-600'>
       {navItems.map((item, index) => (
@@ -28,7 +37,7 @@ export default function ListNav() {
           {item.label}
         </NavLink>
       ))}
-      <li className='flex items-center gap-1 cursor-pointer'>
+      <li onClick={handleLogout} className='flex items-center gap-1 cursor-pointer'>
         <IoLogOutOutline /> Salir
       </li>
     </ul>

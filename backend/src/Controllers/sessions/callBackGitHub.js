@@ -1,5 +1,6 @@
 const config = require("../../config/config");
 const generaJWT = require("../../utils/generaJWT");
+const dotenv = require("dotenv").config();
 
 module.exports = (req, res) => {
   const user = req.user;
@@ -16,5 +17,15 @@ module.exports = (req, res) => {
     maxAge: 1000 * 60 * 60,
     httpOnly: true,
   });
-  res.status(200).redirect("/");
+
+  
+
+  const redirectURL = user.role === 'admin'
+  ? process.env.NODE_ENV === 'production'
+    ? 'https://silouso.shop/admin'
+    : 'http://localhost:5173/admin'
+  : process.env.NODE_ENV === 'production'
+    ? 'https://silouso.shop/'
+    : 'http://localhost:5173/';
+  res.status(200).redirect(redirectURL);
 };

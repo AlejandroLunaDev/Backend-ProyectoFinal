@@ -1,5 +1,4 @@
 const Router = require("./router");
-
 const {
   login,
   recoverPassword,
@@ -7,6 +6,8 @@ const {
   register,
   gitHub,
   callBackGitHub,
+  googleLogin,
+  callBackGoogle,
   logOut,
   current,
 } = require("../controllers/sessions.controller");
@@ -31,8 +32,14 @@ class SessionsRoutes extends Router {
       passportCall("github"),
       callBackGitHub
     );
+    this.get("/google", ["PUBLIC"], passportCall("google"));
+    this.get(
+      "/google/callback",
+      ["PUBLIC"],
+      passportCall("google"),
+      callBackGoogle
+    );
     this.get("/current", ["PUBLIC"], passportCall("jwt"), current);
-
     this.get("/logout", ["PUBLIC"], logOut);
   }
 }

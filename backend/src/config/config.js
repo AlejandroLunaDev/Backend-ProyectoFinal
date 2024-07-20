@@ -10,11 +10,17 @@ const config = {
   NODEMAILER_GMAIL: process.env.NODEMAILER_GMAIL,
   JWT_RESET_PASSWORD_KEY: process.env.JWT_RESET_PASSWORD_KEY,
   PRIVATE_KEY: process.env.PRIVATE_KEY,
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+  GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
   CALLBACK_URL: process.env.CALLBACK_URL,
   PASS_COOKIE: process.env.PASS_COOKIE,
+
+
   MODE: process.env.MODE || "production",
 };
-console.log('callback url', config.CALLBACK_URL)
+console.log("google Callback URL:", config.GOOGLE_CALLBACK_URL);
 module.exports = config;

@@ -28,13 +28,25 @@ module.exports = async (req, res) => {
     res.cookie(config.PASS_COOKIE, token, {
       maxAge: 1000 * 60 * 60,
       httpOnly: true,
+      sameSite: 'None', // Esto es importante para cookies en entornos cross-domain
+      secure: true,   // Esto es importante para cookies en entornos cross-domain
+  
     });
 
     await userService.update(user._id, {
       last_connection: new Date(),
     });
 
-    res.sendSuccess();
+    res.sendSuccess({
+      user: {
+        user: {
+          id: userLimited.id,
+          firstName: userLimited.first_name,
+          lastName: userLimited.last_name,
+          role: userLimited.role,
+        }
+      }
+    });
   } catch (error) {
     req.logger.error(error.cause);
     return res.sendServerError(error.message);

@@ -5,6 +5,8 @@ const sessionsController = {
   register: require("./sessions/register"),
   gitHub: require("./sessions/gitHub"),
   callBackGitHub: require("./sessions/callBackGitHub"),
+  googleLogin: require("./sessions/googleLogin"),
+  callBackGoogle: require("./sessions/callBackGoogle"),
   current: require("./sessions/current.js"),
   logOut: require("./sessions/logOut")
 };
