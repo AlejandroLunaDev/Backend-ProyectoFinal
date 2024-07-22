@@ -22,5 +22,5 @@ const config = {
 
   MODE: process.env.MODE || "production",
 };
-console.log("google Callback URL:", config.GOOGLE_CALLBACK_URL);
+
 module.exports = config;

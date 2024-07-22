@@ -5,6 +5,7 @@ import Products from './products/Products';
 import Orders from './orders/Orders';
 import Users from './users/Users';
 import Admins from './admins/Admins';
+import Categories from './categories/Categories';
 
 export default function AdminApp() {
   return (
@@ -15,6 +16,7 @@ export default function AdminApp() {
         <Route path='/' element={<Navigate to='/admin/dashboard' />} />
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path='/products' element={<Products />} />
+          <Route path='/categories' element={<Categories />} />
           <Route path='/orders' element={<Orders />} />
           <Route path='/admins' element={<Admins />} />
           <Route path='/users' element={<Users />} />

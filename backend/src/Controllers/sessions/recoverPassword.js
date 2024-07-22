@@ -7,6 +7,7 @@ const transport = require("../../utils/nodemailer");
 
 module.exports = async (req, res, next) => {
   const { email } = req.body;
+
   const userDB = await userService.getUserByEmail(email);
   try {
     if (!userDB) {
@@ -21,14 +22,14 @@ module.exports = async (req, res, next) => {
     const token = generateTokenResetPassword(userDB);
     //guardar token BD para poder eliminarlo despues de usarlo
     let result = await transport.sendMail({
-      from: "Recover Password <ferbeoulvedev@gmail.com>",
+      from: "Recover Password <alejandrolunadev@gmail.com>",
       to: email,
       subject: "Recover password",
       html: `
               <div>
-                  <h1>Recover your password</h1>
-                  <a href="${config.SERVER}/resetpassword?token=${token}">Click me to recover your password</a>
-                  <p>This link to reset your password is only valid for 1 hour</>
+                  <h1>Recuperar contraseña</h1>
+                  <a href="${config.SERVER}/resetpassword?token=${token}">Haga click para recuperar su contraseña</a>
+                  <p>Este link solo es valido por 1 hora</>
               </div>
               `,
     });

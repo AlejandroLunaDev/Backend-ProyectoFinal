@@ -112,6 +112,7 @@ const Users = () => {
             <tr>
               <th className='py-2 px-4 border-b text-left'>Nombre</th>
               <th className='py-2 px-4 border-b text-left'>Apellido</th>
+              <th className='py-2 px-4 border-b text-left'>Email</th>
               <th className='py-2 px-4 border-b text-left'>Rol</th>
               <th className='py-2 px-4 border-b text-left'>Estado</th>
               <th className='py-2 px-4 border-b text-left'>Acciones</th>
@@ -122,6 +123,7 @@ const Users = () => {
               <tr key={user._id}>
                 <td className='py-2 px-4 border-b'>{user.first_name}</td>
                 <td className='py-2 px-4 border-b'>{user.last_name}</td>
+                <td className='py-2 px-4 border-b'>{user.email}</td>
                 <td className='py-2 px-4 border-b'>
                   <select
                     value={user.role}

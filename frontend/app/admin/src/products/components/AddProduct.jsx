@@ -62,7 +62,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.title}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -79,7 +79,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.price}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -96,7 +96,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.stock}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -113,7 +113,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.category}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -130,7 +130,7 @@ const AddProduct = ({ onCancel }) => {
             onChange={handleChange}
             required
             rows='3'
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -147,7 +147,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.thumbnails}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='mb-4'>
@@ -164,7 +164,7 @@ const AddProduct = ({ onCancel }) => {
             value={productData.code}
             onChange={handleChange}
             required
-            className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='mt-1 block w-full border rounded border-gray-300 shadow-sm focus:border-[#61005D] focus:ring focus:ring-indigo-200 focus:ring-opacity-5 focus:outline-none'
           />
         </div>
         <div className='flex justify-between'>
