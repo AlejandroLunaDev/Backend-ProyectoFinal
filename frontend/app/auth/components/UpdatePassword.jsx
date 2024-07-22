@@ -1,18 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAuth } from "../hook/useAuth";
-import Swal from "sweetalert2";
+import { useAuth } from '../hook/useAuth';
+import Swal from 'sweetalert2';
 import { useState } from 'react';
-import { FaEye, FaEyeSlash, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Importa los íconos
-import { useLocation, useNavigate } from 'react-router-dom'; // Importa useLocation para obtener el token
+import {
+  FaEye,
+  FaEyeSlash,
+  FaCheckCircle,
+  FaTimesCircle
+} from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { validatePassword } from '../utils/validation';
 
 export default function UpdatePassword() {
   const { updatePasswordOk } = useAuth();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false); // Estado para manejar la visibilidad de la contraseña
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // Estado para manejar la visibilidad de la confirmación de contraseña
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -30,14 +36,20 @@ export default function UpdatePassword() {
         .min(8, 'La contraseña debe tener al menos 8 caracteres')
         .matches(/[a-zA-Z]/, 'La contraseña debe contener al menos una letra')
         .matches(/[0-9]/, 'La contraseña debe contener al menos un número')
-        .matches(/[!@#$%^&*(),.?":{}|<>]/, 'La contraseña debe contener al menos un carácter especial')
-        .matches(/[A-Z]/, 'La contraseña debe contener al menos una letra mayúscula')
+        .matches(
+          /[!@#$%^&*(),.?":{}|<>]/,
+          'La contraseña debe contener al menos un carácter especial'
+        )
+        .matches(
+          /[A-Z]/,
+          'La contraseña debe contener al menos una letra mayúscula'
+        )
         .required('La contraseña es requerida'),
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir')
         .required('La confirmación de contraseña es requerida')
     }),
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       try {
         if (!token) {
           throw new Error('Token no encontrado en la URL');
@@ -62,121 +74,182 @@ export default function UpdatePassword() {
     }
   });
 
-  const validatePassword = (password) => {
-    const lengthValid = password.length >= 8;
-    const letterValid = /[a-zA-Z]/.test(password);
-    const numberValid = /[0-9]/.test(password);
-    const specialCharValid = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const upperCaseValid = /[A-Z]/.test(password);
-
-    return {
-      lengthValid,
-      letterValid,
-      numberValid,
-      specialCharValid,
-      upperCaseValid
-    };
-  };
-
-  const { lengthValid, letterValid, numberValid, specialCharValid, upperCaseValid } = validatePassword(password);
+  const {
+    lengthValid,
+    letterValid,
+    numberValid,
+    specialCharValid,
+    upperCaseValid
+  } = validatePassword(password);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Actualizar Contraseña</h2>
+    <div className='flex items-center justify-center min-h-screen bg-gray-100'>
+      <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
+        <h2 className='text-2xl font-bold mb-6 text-center'>
+          Actualizar Contraseña
+        </h2>
         <form onSubmit={formik.handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 mb-2">Nueva Contraseña</label>
-            <div className="relative">
+          <div className='mb-4'>
+            <label htmlFor='password' className='block text-gray-700 mb-2'>
+              Nueva Contraseña
+            </label>
+            <div className='relative'>
               <input
                 type={passwordVisible ? 'text' : 'password'}
-                id="password"
-                name="password"
+                id='password'
+                name='password'
                 value={formik.values.password}
-                onChange={(e) => {
+                onChange={e => {
                   formik.handleChange(e);
                   setPassword(e.target.value);
                 }}
                 onBlur={formik.handleBlur}
-                className={`w-full p-2 border rounded-md ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-300'} focus:outline-none pr-10`} // Ajusta el padding a la derecha
+                className={`w-full p-2 border rounded-md ${
+                  formik.touched.password && formik.errors.password
+                    ? 'border-red-500'
+                    : 'border-gray-300'
+                } focus:outline-none pr-10`} // Ajusta el padding a la derecha
                 required
               />
               <button
-                type="button"
+                type='button'
                 onClick={() => setPasswordVisible(!passwordVisible)}
-                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                className='absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer'
               >
-                {passwordVisible ? <FaEye className="text-gray-500" /> : <FaEyeSlash className="text-gray-500" />}
+                {passwordVisible ? (
+                  <FaEye className='text-gray-500' />
+                ) : (
+                  <FaEyeSlash className='text-gray-500' />
+                )}
               </button>
             </div>
             {formik.touched.password && formik.errors.password ? (
-              <p className="text-red-500 mb-4 text-sm">{formik.errors.password}</p>
+              <p className='text-red-500 mb-4 text-sm'>
+                {formik.errors.password}
+              </p>
             ) : null}
           </div>
-          <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-gray-700 mb-2">Confirmar Nueva Contraseña</label>
-            <div className="relative">
+          <div className='mb-4'>
+            <label
+              htmlFor='confirmPassword'
+              className='block text-gray-700 mb-2'
+            >
+              Confirmar Nueva Contraseña
+            </label>
+            <div className='relative'>
               <input
                 type={confirmPasswordVisible ? 'text' : 'password'}
-                id="confirmPassword"
-                name="confirmPassword"
+                id='confirmPassword'
+                name='confirmPassword'
                 value={formik.values.confirmPassword}
-                onChange={(e) => {
+                onChange={e => {
                   formik.handleChange(e);
                   setConfirmPassword(e.target.value);
                 }}
                 onBlur={formik.handleBlur}
-                className={`w-full p-2 border rounded-md ${formik.touched.confirmPassword && formik.errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} focus:outline-none pr-10`} // Ajusta el padding a la derecha
+                className={`w-full p-2 border rounded-md ${
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                    ? 'border-red-500'
+                    : 'border-gray-300'
+                } focus:outline-none pr-10`} // Ajusta el padding a la derecha
                 required
               />
               <button
-                type="button"
-                onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                type='button'
+                onClick={() =>
+                  setConfirmPasswordVisible(!confirmPasswordVisible)
+                }
+                className='absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer'
               >
-                {confirmPasswordVisible ? <FaEye className="text-gray-500" /> : <FaEyeSlash className="text-gray-500" />}
+                {confirmPasswordVisible ? (
+                  <FaEye className='text-gray-500' />
+                ) : (
+                  <FaEyeSlash className='text-gray-500' />
+                )}
               </button>
             </div>
             {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <p className="text-red-500 mb-4 text-sm">{formik.errors.confirmPassword}</p>
+              <p className='text-red-500 mb-4 text-sm'>
+                {formik.errors.confirmPassword}
+              </p>
             ) : null}
           </div>
-          <div className="my-4">
-              <ul className="list-disc  list-inside pl-4">
-                <li className={`flex items-center text-sm ${lengthValid ? 'text-green-500' : 'text-red-500'}`}>
-                  {lengthValid ? <FaCheckCircle className="mr-2" /> : <FaTimesCircle className="mr-2" />}
-                  Debe tener al menos 8 caracteres
-                </li>
-                <li className={`flex items-center text-sm ${letterValid ? 'text-green-500' : 'text-red-500'}`}>
-                  {letterValid ? <FaCheckCircle className="mr-2" /> : <FaTimesCircle className="mr-2" />}
-                  Debe contener al menos una letra
-                </li>
-                <li className={`flex items-center text-sm ${upperCaseValid ? 'text-green-500' : 'text-red-500'}`}>
-                  {upperCaseValid ? <FaCheckCircle className="mr-2" /> : <FaTimesCircle className="mr-2" />}
-                  Debe contener al menos una letra mayúscula
-                </li>
-                <li className={`flex items-center text-sm ${numberValid ? 'text-green-500' : 'text-red-500'}`}>
-                  {numberValid ? <FaCheckCircle className="mr-2" /> : <FaTimesCircle className="mr-2" />}
-                  Debe contener al menos un número
-                </li>
-                <li className={`flex items-center text-sm ${specialCharValid ? 'text-green-500' : 'text-red-500'}`}>
-                  {specialCharValid ? <FaCheckCircle className="mr-2" /> : <FaTimesCircle className="mr-2" />}
-                  Debe contener al menos un carácter especial
-                </li>
-              </ul>
- 
+          <div className='my-4'>
+            <ul className='list-disc  list-inside pl-4'>
+              <li
+                className={`flex items-center text-sm ${
+                  lengthValid ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {lengthValid ? (
+                  <FaCheckCircle className='mr-2' />
+                ) : (
+                  <FaTimesCircle className='mr-2' />
+                )}
+                Debe tener al menos 8 caracteres
+              </li>
+              <li
+                className={`flex items-center text-sm ${
+                  letterValid ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {letterValid ? (
+                  <FaCheckCircle className='mr-2' />
+                ) : (
+                  <FaTimesCircle className='mr-2' />
+                )}
+                Debe contener al menos una letra
+              </li>
+              <li
+                className={`flex items-center text-sm ${
+                  upperCaseValid ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {upperCaseValid ? (
+                  <FaCheckCircle className='mr-2' />
+                ) : (
+                  <FaTimesCircle className='mr-2' />
+                )}
+                Debe contener al menos una letra mayúscula
+              </li>
+              <li
+                className={`flex items-center text-sm ${
+                  numberValid ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {numberValid ? (
+                  <FaCheckCircle className='mr-2' />
+                ) : (
+                  <FaTimesCircle className='mr-2' />
+                )}
+                Debe contener al menos un número
+              </li>
+              <li
+                className={`flex items-center text-sm ${
+                  specialCharValid ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {specialCharValid ? (
+                  <FaCheckCircle className='mr-2' />
+                ) : (
+                  <FaTimesCircle className='mr-2' />
+                )}
+                Debe contener al menos un carácter especial
+              </li>
+            </ul>
           </div>
           <button
-            type="submit"
-            className="w-full py-2 px-4 bg-[#61005e] text-white rounded-md hover:bg-[#61005ee2] focus:outline-none"
+            type='submit'
+            className='w-full py-2 px-4 bg-[#61005e] text-white rounded-md hover:bg-[#61005ee2] focus:outline-none'
           >
             Actualizar Contraseña
           </button>
         </form>
-        <div className="mt-4 text-center">
+        <div className='mt-4 text-center'>
           <button
             onClick={() => navigate('/login')}
-            className="text-[#61005D] font-semibold"
+            className='text-[#61005D] font-semibold'
           >
             Volver al inicio de sesión
           </button>

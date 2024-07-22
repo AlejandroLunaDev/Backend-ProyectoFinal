@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Swal from "sweetalert2"; // Importa SweetAlert2
 import { useAuth } from "../hook/useAuth";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate, Link } from "react-router-dom"; // Importa useNavigate
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from 'react'; // Importa useState
@@ -9,6 +9,7 @@ import { FaEye, FaEyeSlash, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import CircularProgress from '@mui/material/CircularProgress';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
+import { validatePassword } from '../utils/validation';
 
 const RegisterForm = ({ onClose }) => {
  
@@ -80,21 +81,7 @@ const RegisterForm = ({ onClose }) => {
     },
   });
 
-  const validatePassword = (password) => {
-    const lengthValid = password.length >= 8;
-    const letterValid = /[a-zA-Z]/.test(password);
-    const numberValid = /[0-9]/.test(password);
-    const specialCharValid = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    const upperCaseValid = /[A-Z]/.test(password);
 
-    return {
-      lengthValid,
-      letterValid,
-      numberValid,
-      specialCharValid,
-      upperCaseValid
-    };
-  };
 
   const { lengthValid, letterValid, numberValid, specialCharValid, upperCaseValid } = validatePassword(password);
 
@@ -316,6 +303,14 @@ const RegisterForm = ({ onClose }) => {
           </button>
         </div>
       </form>
+      <div className="mt-4 text-center text-sm">
+          <p className="text-gray-600">
+            ¿Ya tienes una cuenta?{' '}
+            <Link to="/login" className="text-[#61005D] font-semibold">
+              Inicia sesión
+            </Link>
+          </p>
+        </div>
     </div>
     </section>
   );
