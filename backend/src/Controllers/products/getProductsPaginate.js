@@ -6,31 +6,32 @@ module.exports = async (req, res) => {
     let sort = req.query.sort;
     if (sort && "asc" === req.query.sort.toLocaleLowerCase()) {
       sort = { price: 1 };
-    }
-    if (sort && "desc" === req.query.sort.toLocaleLowerCase()) {
+    } else if (sort && "desc" === req.query.sort.toLocaleLowerCase()) {
       sort = { price: -1 };
     }
 
-    let query = { owner: { $ne: req.user.email } };
+    // Inicializa la consulta básica
+    let query = {};
+
+    // Si req.user está definido, agrega la condición del propietario
+    if (req.user && req.user.email) {
+      query.owner = { $ne: req.user.email };
+    }
 
     if (req.query.query === "true") {
       query.status = true;
-    }
-    if (req.query.query === "false") {
+    } else if (req.query.query === "false") {
       query.status = false;
-    }
-    if (
-      req.query.query &&
-      req.query.query !== "true" &&
-      req.query.query !== "false"
-    ) {
+    } else if (req.query.query) {
       query.category = req.query.query;
     }
+
     const options = {
       limit,
       page: req.query.page ?? 1,
       sort,
     };
+
     const products = await productService.get(query, options);
     const {
       docs,
@@ -49,6 +50,7 @@ module.exports = async (req, res) => {
         }${req.query.sort ? "&sort=" + req.query.sort : ""}${
           req.query.query ? "&query=" + req.query.query : ""
         }`;
+
     const nextLink = !nextPage
       ? null
       : `/api/products/paginate${"?page=" + nextPage}${
@@ -56,6 +58,7 @@ module.exports = async (req, res) => {
         }${req.query.sort ? "&sort=" + req.query.sort : ""}${
           req.query.query ? "&query=" + req.query.query : ""
         }`;
+
     return res.status(200).json({
       status: "Success",
       products: docs,
@@ -70,6 +73,6 @@ module.exports = async (req, res) => {
     });
   } catch (error) {
     req.logger.error(error.message);
-    return res.sendServerError(error.message);
+    return res.status(500).json({ message: error.message });
   }
 };

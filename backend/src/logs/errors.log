@@ -190,3 +190,15 @@ error: null
 error: null
 error: null
 error: null
+error: Cannot read properties of undefined (reading 'email')
+error: Cannot read properties of undefined (reading 'email')
+error: Cannot read properties of undefined (reading 'email')
+error: Cannot read properties of undefined (reading 'email')
+error: One or more properties were incomplete or not valid.
+        List of required properties:
+        * title: needs to be a String received, gatos
+        * description: needs to be a String received, gatos
+        * code: needs to be a String received, 12
+        * price: needs to be a Number received, 12
+        * stock: needs to be a Number received, 0
+        * category: needs to be a String received, gatos

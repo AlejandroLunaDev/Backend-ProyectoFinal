@@ -15,8 +15,7 @@ class ProductsRouter extends Router {
     this.get("/", ["PUBLIC"], getProducts);
     this.get(
       "/paginate",
-      ["USER", "PREMIUM", "ADMIN"],
-      passportCall("jwt"),
+      ["PUBLIC"],
       getProductsPaginate
     );
     this.get("/:pid", ["PUBLIC"], getProductById);
